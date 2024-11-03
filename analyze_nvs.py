@@ -206,7 +206,7 @@ def scan_in_page(page_data, page_index):
             # We have to first slice the byte array at the first null terminator.
             if 0 in entry_key_data:
                 entry_key_data = entry_key_data[0:entry_key_data.find(0)]
-            entry_key = entry_key_data.decode('ascii')
+            entry_key = entry_key_data.decode('utf-8')
             
             # Read out entry data
             # Note that for standard integer types, the enum values can be used directly and not interpreted as enums.
@@ -218,7 +218,7 @@ def scan_in_page(page_data, page_index):
                 
             elif EntryType(entry_type) == EntryType.STR:
                 data_size = int.from_bytes(page_data[entry_base+DATA_OFFSET:entry_base+DATA_OFFSET+2], byteorder='little', signed=False)
-                entry_data = page_data[entry_base+DATA_OFFSET+8:entry_base+DATA_OFFSET+8+data_size].decode('ascii')
+                entry_data = page_data[entry_base+DATA_OFFSET+8:entry_base+DATA_OFFSET+8+data_size].decode('utf-8')
                 
             elif EntryType(entry_type) == EntryType.BLOB:
                 data_size = int.from_bytes(page_data[entry_base+DATA_OFFSET:entry_base+DATA_OFFSET+2], byteorder='little', signed=False)
